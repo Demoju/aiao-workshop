@@ -1,43 +1,25 @@
 import { create } from 'zustand'
-import type { Order, OrderStatus, TableWithOrders } from '../types'
+import type { Order, OrderStatus } from '../types'
 
 interface OrderState {
-  tables: TableWithOrders[]
-  customerOrders: Order[]
-  setTables: (tables: TableWithOrders[]) => void
-  setCustomerOrders: (orders: Order[]) => void
+  orders: Order[]
+  setOrders: (orders: Order[]) => void
   addOrder: (order: Order) => void
   updateOrderStatus: (orderId: number, status: OrderStatus) => void
   removeOrder: (orderId: number) => void
 }
 
 export const useOrderStore = create<OrderState>()((set) => ({
-  tables: [],
-  customerOrders: [],
-  setTables: (tables) => set({ tables }),
-  setCustomerOrders: (orders) => set({ customerOrders: orders }),
+  orders: [],
+  setOrders: (orders) => set({ orders }),
   addOrder: (order) =>
-    set((state) => ({
-      tables: state.tables.map((t) =>
-        t.tableId === order.tableId
-          ? { ...t, orders: [...t.orders, order], totalAmount: t.totalAmount + order.totalAmount }
-          : t,
-      ),
-    })),
+    set((state) => ({ orders: [order, ...state.orders] })),
   updateOrderStatus: (orderId, status) =>
     set((state) => ({
-      tables: state.tables.map((t) => ({
-        ...t,
-        orders: t.orders.map((o) => (o.orderId === orderId ? { ...o, status } : o)),
-      })),
+      orders: state.orders.map((o) => (o.id === orderId ? { ...o, status } : o)),
     })),
   removeOrder: (orderId) =>
     set((state) => ({
-      tables: state.tables.map((t) => {
-        const removed = t.orders.find((o) => o.orderId === orderId)
-        if (!removed) return t
-        const orders = t.orders.filter((o) => o.orderId !== orderId)
-        return { ...t, orders, totalAmount: t.totalAmount - removed.totalAmount }
-      }),
+      orders: state.orders.filter((o) => o.id !== orderId),
     })),
 }))

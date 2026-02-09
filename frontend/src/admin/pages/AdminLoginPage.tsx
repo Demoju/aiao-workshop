@@ -11,7 +11,7 @@ export default function AdminLoginPage() {
   const [error, setError] = useState('')
   const { register, handleSubmit, formState: { errors } } = useForm<AdminLoginFormData>({
     resolver: zodResolver(adminLoginSchema),
-    defaultValues: { storeId: 1, username: '', password: '' },
+    defaultValues: { username: '', password: '' },
   })
 
   const onSubmit = async (data: AdminLoginFormData) => {
@@ -25,12 +25,9 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm space-y-4">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-sm space-y-4 rounded-lg bg-white p-6 shadow">
         <h1 className="text-2xl font-bold text-center">관리자 로그인</h1>
-        <div>
-          <input {...register('storeId', { valueAsNumber: true })} type="number" placeholder="매장 ID" className="w-full rounded border p-3 min-h-[44px]" />
-        </div>
         <div>
           <input {...register('username')} placeholder="아이디" className="w-full rounded border p-3 min-h-[44px]" />
           {errors.username && <p className="mt-1 text-sm text-red-500">{errors.username.message}</p>}

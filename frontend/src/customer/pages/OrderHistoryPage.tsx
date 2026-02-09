@@ -15,7 +15,7 @@ export default function OrderHistoryPage() {
     const load = async () => {
       setLoading(true)
       const data = await customerApi.getOrders(user.tableId!, user.sessionId!)
-      setOrders(data.sort((a, b) => new Date(b.orderTime).getTime() - new Date(a.orderTime).getTime()))
+      setOrders(data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()))
       setLoading(false)
     }
     load()
@@ -23,7 +23,7 @@ export default function OrderHistoryPage() {
 
   const handleCancel = async (orderId: number) => {
     await customerApi.cancelOrder(orderId)
-    setOrders((prev) => prev.filter((o) => o.orderId !== orderId))
+    setOrders((prev) => prev.filter((o) => o.id !== orderId))
   }
 
   if (loading) return <div className="p-4 text-center">로딩 중...</div>
@@ -36,7 +36,7 @@ export default function OrderHistoryPage() {
           <p className="text-center text-gray-500">주문 내역이 없습니다</p>
         ) : (
           orders.map((order) => (
-            <OrderCard key={order.orderId} order={order} onCancel={handleCancel} />
+            <OrderCard key={order.id} order={order} onCancel={handleCancel} />
           ))
         )}
       </div>

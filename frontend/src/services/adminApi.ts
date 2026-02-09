@@ -1,29 +1,25 @@
-import type { AdminLoginRequestDto, AdminLoginResponseDto, Order, OrderStatusUpdateDto, TableWithOrders } from '../types'
+import type { AdminLoginRequestDto, AdminLoginResponseDto, Order } from '../types'
 import { apiClient } from './api'
+import type { OrderStatus } from '../types'
 
 export const adminLogin = async (dto: AdminLoginRequestDto): Promise<AdminLoginResponseDto> => {
   const { data } = await apiClient.post('/admin/login', dto)
   return data
 }
 
-export const getOrders = async (): Promise<TableWithOrders[]> => {
-  const { data } = await apiClient.get('/admin/orders')
+// Backend returns flat OrderResponseDto[], storeId required as query param
+export const getOrders = async (storeId: number): Promise<Order[]> => {
+  const { data } = await apiClient.get('/admin/orders', { params: { storeId } })
   return data
 }
 
-export const updateOrderStatus = async (orderId: number, dto: OrderStatusUpdateDto): Promise<void> => {
-  await apiClient.patch(`/admin/orders/${orderId}/status`, dto)
+// Backend expects status as @RequestParam, not body
+export const updateOrderStatus = async (orderId: number, status: OrderStatus): Promise<void> => {
+  await apiClient.patch(`/admin/orders/${orderId}/status`, null, { params: { status } })
 }
 
 export const deleteOrder = async (orderId: number): Promise<void> => {
   await apiClient.delete(`/admin/orders/${orderId}`)
 }
 
-export const endTableSession = async (tableId: number): Promise<void> => {
-  await apiClient.post(`/admin/tables/${tableId}/end-session`)
-}
-
-export const getPastOrders = async (tableId: number): Promise<Order[]> => {
-  const { data } = await apiClient.get(`/admin/tables/${tableId}/past-orders`)
-  return data
-}
+// NOTE: endTableSession, getPastOrders, SSE not implemented in Backend yet

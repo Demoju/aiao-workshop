@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export function Header({ title, showBack, showCart }: HeaderProps) {
   const navigate = useNavigate()
-  const user = useAuthStore((s: { user: ReturnType<typeof useAuthStore.getState>['user'] }) => s.user)
+  const user = useAuthStore((s) => s.user)
 
   return (
     <header className="sticky top-0 z-10 flex items-center justify-between bg-white px-4 py-3 shadow">
@@ -22,9 +22,6 @@ export function Header({ title, showBack, showCart }: HeaderProps) {
       <div className="flex items-center gap-2">
         {showCart && user?.role === 'customer' && (
           <button onClick={() => navigate('/customer/cart')} className="min-h-[44px] min-w-[44px]">🛒</button>
-        )}
-        {user?.role === 'admin' && (
-          <span className="text-sm text-gray-600">{user.username}</span>
         )}
       </div>
     </header>

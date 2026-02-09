@@ -23,8 +23,6 @@ export function useAuth() {
       setAuth({
         role: 'admin',
         token: res.token,
-        storeId: res.storeId,
-        username: res.username,
       })
     }
   }

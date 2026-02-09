@@ -7,7 +7,6 @@ export const tableLoginSchema = z.object({
 })
 
 export const adminLoginSchema = z.object({
-  storeId: z.number(),
   username: z.string().min(1, '아이디를 입력해주세요'),
   password: z.string().min(1, '비밀번호를 입력해주세요'),
 })

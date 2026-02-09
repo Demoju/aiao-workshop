@@ -39,14 +39,14 @@ export interface OrderItem {
   unitPrice: number
 }
 
+// Backend OrderResponseDto 매핑
 export interface Order {
-  orderId: number
-  orderNumber: string
+  id: number
   tableId: number
-  sessionId: string
-  totalAmount: number
+  orderNumber: string
   status: OrderStatus
-  orderTime: string
+  totalAmount: number
+  createdAt: string
   items: OrderItem[]
 }
 
@@ -93,18 +93,15 @@ export interface TableLoginResponseDto {
   tableNumber: string
 }
 
+// Backend: { username, password } only
 export interface AdminLoginRequestDto {
-  storeId: number
   username: string
   password: string
 }
 
+// Backend returns token only
 export interface AdminLoginResponseDto {
   token: string
-  refreshToken: string
-  adminId: number
-  username: string
-  storeId: number
 }
 
 export interface OrderStatusUpdateDto {
@@ -121,26 +118,4 @@ export interface ErrorResponseDto {
 export interface ApiError {
   message: string
   status: number
-}
-
-// SSE Events
-
-export interface SseEvent {
-  type: 'new-order' | 'order-status-change' | 'order-deleted'
-  data: unknown
-}
-
-export interface NewOrderEvent {
-  type: 'new-order'
-  data: Order
-}
-
-export interface OrderStatusChangeEvent {
-  type: 'order-status-change'
-  data: { orderId: number; newStatus: OrderStatus }
-}
-
-export interface OrderDeletedEvent {
-  type: 'order-deleted'
-  data: { orderId: number }
 }
