@@ -4,8 +4,9 @@
 - **Project Name**: 테이블오더 서비스 (Table Order Service)
 - **Project Type**: Greenfield
 - **Start Date**: 2026-02-09T12:56:36+09:00
+- **Last Updated**: 2026-02-09T14:13:00+09:00
 - **Current Phase**: CONSTRUCTION
-- **Current Stage**: Functional Design (Unit 1)
+- **Current Stage**: NFR Design (Unit 1) - IN PROGRESS
 
 ## Workspace State
 - **Existing Code**: No
@@ -29,9 +30,9 @@
 - [x] Units Generation - EXECUTE (2026-02-09T13:43:49+09:00)
 
 ### 🟢 CONSTRUCTION PHASE
-- [ ] Functional Design - EXECUTE (per-unit) - Unit 1 Complete (2026-02-09T14:02:23+09:00)
+- [x] Functional Design - EXECUTE (per-unit) - Unit 1 Complete (2026-02-09T14:02:23+09:00)
 - [x] NFR Requirements - EXECUTE (per-unit) - Unit 1 Complete (2026-02-09T14:08:05+09:00)
-- [ ] NFR Design - EXECUTE (per-unit)
+- [ ] NFR Design - EXECUTE (per-unit) - Unit 1 IN PROGRESS
 - [ ] Infrastructure Design - EXECUTE (per-unit)
 - [ ] Code Generation - EXECUTE (per-unit)
 - [ ] Build and Test - EXECUTE
