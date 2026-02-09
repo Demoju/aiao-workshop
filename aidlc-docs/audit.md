@@ -294,3 +294,26 @@ Approve plan and proceed to Application Design
 **Context**: CONSTRUCTION - Infrastructure Design (Unit 1 Frontend) - Approved
 
 ---
+
+## Code Generation - TDD Planning - Unit 1 Frontend
+**Timestamp**: 2026-02-09T14:42:42+09:00
+**User Input**: "A 로 해줘"
+**AI Response**: TDD 방식 선택. 3개 TDD plan 파일 생성: contracts.md (Types, Store, Service, Hook, Component, Page layers), test-plan.md (30 test cases), tdd-code-generation-plan.md (9 plan steps). Awaiting user approval.
+**Context**: CONSTRUCTION - Code Generation (Unit 1 Frontend) - TDD Planning (Part 1)
+
+---
+
+## Code Generation - TDD Plan Approved
+**Timestamp**: 2026-02-09T14:46:27+09:00
+**User Input**: "gogo"
+**AI Response**: TDD Plan approved. Starting Part 2 Generation - Step 0: Project Setup.
+**Context**: CONSTRUCTION - Code Generation (Unit 1 Frontend) - TDD Generation (Part 2)
+
+---
+
+## Code Generation - TDD Complete - Unit 1 Frontend
+**Timestamp**: 2026-02-09T15:40:00+09:00
+**AI Response**: TDD Code Generation complete for Unit 1 Frontend. 34 tests all passed. Build successful. Generated: types, stores (cart/auth/order/loading), services (customer/admin API + interceptors), hooks (useCart/useAuth/useOrderStream), components (MenuCard/CartItem/OrderCard + admin components), pages (8 pages with lazy loading), deployment artifacts (Dockerfile, nginx.conf), i18n (ko/en).
+**Context**: CONSTRUCTION - Code Generation (Unit 1 Frontend) - TDD Generation Complete
+
+---

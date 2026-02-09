@@ -34,7 +34,7 @@
 - [x] NFR Requirements - EXECUTE (per-unit) - Unit 1 Complete (2026-02-09T14:08:05+09:00)
 - [x] NFR Design - EXECUTE (per-unit) - Unit 1 Complete (2026-02-09T14:36:37+09:00)
 - [x] Infrastructure Design - EXECUTE (per-unit) - Unit 1 Complete (2026-02-09T14:41:27+09:00)
-- [ ] Code Generation - EXECUTE (per-unit)
+- [x] Code Generation - EXECUTE (per-unit) - Unit 1 Complete (2026-02-09T14:46:27+09:00)
 - [ ] Build and Test - EXECUTE
 
 ### 🟡 OPERATIONS PHASE
