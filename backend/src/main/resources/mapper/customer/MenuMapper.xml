@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tableorder.customer.mapper.MenuMapper">
+    
+    <select id="selectMenus" resultType="com.tableorder.domain.Menu">
+        SELECT menu_id, menu_name, price, description, image_url, 
+               category_id, store_id, is_available, created_at, updated_at
+        FROM menus
+        WHERE is_available = true
+        <if test="categoryId != null">
+            AND category_id = #{categoryId}
+        </if>
+        ORDER BY menu_id
+    </select>
+    
+    <select id="selectMenuById" resultType="com.tableorder.domain.Menu">
+        SELECT menu_id, menu_name, price, description, image_url, 
+               category_id, store_id, is_available, created_at, updated_at
+        FROM menus
+        WHERE menu_id = #{menuId}
+    </select>
+    
+</mapper>
