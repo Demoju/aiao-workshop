@@ -1,83 +1,71 @@
-# Build Instructions - Table Order Admin API
+# Build Instructions
 
-## Prerequisites
-- **Build Tool**: Maven 3.9+
-- **Java**: JDK 17+
-- **Docker**: 20.10+ (선택사항)
-- **PostgreSQL**: 15+ (로컬 실행 시)
+## Unit 1 - Frontend
 
-## Build Steps
+### Prerequisites
+- **Node.js**: 20.x
+- **npm**: 10.x+
 
-### 1. Install Dependencies
+### Development Server
+```bash
+cd frontend
+npm install
+npm run dev
+# → http://localhost:5173 (API proxy: /api → http://localhost:8080)
+```
+
+### Production Build
+```bash
+cd frontend
+npm run build
+# Output: frontend/dist/
+```
+
+### Docker Build
+```bash
+docker build -t tableorder-frontend ./frontend
+docker run -p 3000:80 tableorder-frontend
+```
+
+---
+
+## Unit 3 - Backend Admin API
+
+### Prerequisites
+- **Java**: 17+
+- **Maven**: 3.9+
+- **PostgreSQL**: 15+
+
+### Local Build
 ```bash
 cd backend
-./mvnw clean install -DskipTests
-```
-
-### 2. Configure Environment
-```bash
-# PostgreSQL 연결 정보 (application.yml에서 설정)
-export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/tableorder
-export SPRING_DATASOURCE_USERNAME=postgres
-export SPRING_DATASOURCE_PASSWORD=postgres
-export SPRING_SECURITY_JWT_SECRET=your-secret-key-change-in-production-min-256-bits-long
-```
-
-### 3. Build All Units
-```bash
-# Maven 빌드
 ./mvnw clean package
-
-# 또는 Docker 이미지 빌드
-docker build -t tableorder-admin-api .
+java -jar target/admin-api-1.0.0.jar
+# → http://localhost:8080
 ```
 
-### 4. Verify Build Success
-- **Expected Output**: `BUILD SUCCESS`
-- **Build Artifacts**: `target/admin-api-1.0.0.jar`
-- **Common Warnings**: Lombok 관련 경고는 정상
-
-## Docker Compose로 빌드 및 실행
-
-### 전체 스택 실행
+### Docker Build
 ```bash
-# 프로젝트 루트에서
-docker-compose up -d
-
-# 로그 확인
-docker-compose logs -f admin-api
-
-# 상태 확인
-docker-compose ps
+docker build -t tableorder-backend ./backend
 ```
 
-### Health Check
+---
+
+## Full System (Docker Compose)
+
 ```bash
-curl http://localhost:8080/actuator/health
+docker-compose up --build
+# frontend: http://localhost:3000
+# backend: http://localhost:8080
+# postgres: localhost:5432
 ```
 
 ## Troubleshooting
 
-### Build Fails with Dependency Errors
-- **Cause**: Maven 의존성 다운로드 실패
-- **Solution**: 
-  ```bash
-  ./mvnw dependency:purge-local-repository
-  ./mvnw clean install
-  ```
+### Frontend npm install 실패
+- Node.js 20.x 확인: `node -v`
+- `rm -rf node_modules package-lock.json && npm install`
 
-### Build Fails with Compilation Errors
-- **Cause**: Java 버전 불일치
-- **Solution**: 
-  ```bash
-  java -version  # JDK 17 확인
-  export JAVA_HOME=/path/to/jdk17
-  ```
-
-### Docker Build Fails
-- **Cause**: Docker daemon 미실행
-- **Solution**: 
-  ```bash
-  sudo systemctl start docker
-  docker ps  # 확인
-  ```
+### Backend 빌드 실패
+- Java 17+ 확인: `java -version`
+- `./mvnw clean install -DskipTests`
