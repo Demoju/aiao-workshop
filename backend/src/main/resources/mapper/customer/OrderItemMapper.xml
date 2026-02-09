@@ -13,12 +13,12 @@
     </insert>
     
     <select id="selectOrderItemsByOrderId" resultType="com.tableorder.domain.OrderItem">
-        SELECT oi.order_item_id, oi.order_id, oi.menu_id, oi.quantity, oi.unit_price, oi.created_at,
-               m.menu_name
+        SELECT oi.id, oi.order_id, oi.menu_id, oi.quantity, oi.unit_price, oi.created_at,
+               m.name as menu_name
         FROM order_items oi
-        LEFT JOIN menus m ON oi.menu_id = m.menu_id
+        LEFT JOIN menu m ON oi.menu_id = m.id
         WHERE oi.order_id = #{orderId}
-        ORDER BY oi.order_item_id
+        ORDER BY oi.id
     </select>
     
     <delete id="deleteOrderItems">

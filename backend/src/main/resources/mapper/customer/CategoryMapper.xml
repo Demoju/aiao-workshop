@@ -5,9 +5,9 @@
 <mapper namespace="com.tableorder.customer.mapper.CategoryMapper">
     
     <select id="selectCategories" resultType="com.tableorder.domain.Category">
-        SELECT category_id, category_name, store_id, created_at
+        SELECT id as categoryId, name as categoryName, store_id as storeId, created_at as createdAt
         FROM category
-        ORDER BY category_id
+        ORDER BY id
     </select>
     
 </mapper>
