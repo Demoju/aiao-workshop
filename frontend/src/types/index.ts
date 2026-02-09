@@ -68,6 +68,7 @@ export interface TableWithOrders {
 // DTOs
 
 export interface OrderRequestDto {
+  storeId: number
   tableId: number
   sessionId: string
   items: OrderItemRequestDto[]
