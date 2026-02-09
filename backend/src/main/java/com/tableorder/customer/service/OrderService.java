@@ -47,6 +47,7 @@ public class OrderService {
         // 5. Order 엔티티 생성
         Order order = Order.builder()
                 .orderNumber(orderNumber)
+                .storeId(request.getStoreId())
                 .tableId(request.getTableId())
                 .sessionId(Long.parseLong(request.getSessionId()))
                 .totalAmount(request.getTotalAmount())

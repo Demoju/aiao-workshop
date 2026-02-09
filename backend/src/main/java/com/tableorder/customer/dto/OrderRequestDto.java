@@ -11,6 +11,9 @@ import java.util.List;
 
 @Data
 public class OrderRequestDto {
+    @NotNull(message = "스토어 ID는 필수입니다")
+    private Long storeId;
+    
     @NotNull(message = "테이블 ID는 필수입니다")
     private Long tableId;
     

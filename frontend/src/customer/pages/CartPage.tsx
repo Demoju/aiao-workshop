@@ -13,10 +13,11 @@ export default function CartPage() {
   const [submitting, setSubmitting] = useState(false)
 
   const handleOrder = async () => {
-    if (items.length === 0 || !user?.tableId || !user?.sessionId) return
+    if (items.length === 0 || !user?.tableId || !user?.sessionId || !user?.storeId) return
     setSubmitting(true)
     try {
       await customerApi.createOrder({
+        storeId: user.storeId,
         tableId: user.tableId,
         sessionId: user.sessionId,
         items: items.map((i) => ({ menuId: i.menu.menuId, quantity: i.quantity, unitPrice: i.menu.price })),

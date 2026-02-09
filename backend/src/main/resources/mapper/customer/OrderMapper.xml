@@ -6,8 +6,8 @@
     
     <insert id="insertOrder" parameterType="com.tableorder.domain.Order" 
             useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO orders (order_number, table_id, session_id, total_amount, status, created_at)
-        VALUES (#{orderNumber}, #{tableId}, #{sessionId}, #{totalAmount}, #{status}, CURRENT_TIMESTAMP)
+        INSERT INTO orders (order_number, store_id, table_id, session_id, total_amount, status, created_at)
+        VALUES (#{orderNumber}, #{storeId}, #{tableId}, #{sessionId}, #{totalAmount}, #{status}, CURRENT_TIMESTAMP)
     </insert>
     
     <select id="selectOrdersBySession" resultType="com.tableorder.domain.Order">
