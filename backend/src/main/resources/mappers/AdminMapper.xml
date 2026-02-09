@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tableorder.mapper.AdminMapper">
+    
+    <select id="findByUsername" resultType="com.tableorder.domain.Admin">
+        SELECT id, store_id, username, password, login_attempts, locked_until, created_at, updated_at
+        FROM admin
+        WHERE username = #{username}
+    </select>
+    
+    <update id="updateLoginAttempts">
+        UPDATE admin
+        SET login_attempts = #{attempts},
+            locked_until = #{lockedUntil},
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = #{adminId}
+    </update>
+    
+</mapper>

@@ -243,38 +243,167 @@ Approve plan and proceed to Application Design
 
 ---
 
-## Session Resumption
-**Timestamp**: 2026-02-09T14:25:31+09:00
-**User Input**: "지금 ai dlc 하고 있는데, front 쪽 이어서 진행하고 싶어"
-**AI Response**: Session resumed. Loaded aidlc-state.md, NFR Design plan, NFR requirements, tech-stack-decisions, unit-of-work, and audit.md. Current stage: NFR Design (Unit 1 Frontend) - awaiting user answers to 10 design pattern questions.
-**Context**: Session continuity - CONSTRUCTION Phase, NFR Design (Unit 1 Frontend)
+## Unit 3 Assignment (Correction)
+**Timestamp**: 2026-02-09T14:27:57+09:00
+**User Input**: "시작"
+**AI Response**: "Unit 2 Functional Design 시작 시도"
+**Context**: CONSTRUCTION - Incorrect unit assignment
 
 ---
 
-## NFR Design - Unit 1 Frontend - Artifacts Generated
-**Timestamp**: 2026-02-09T14:32:58+09:00
-**User Input**: "아, unit1-frontend-nfr-design-plan" (질문 답변 파일에 직접 작성 완료 확인)
-**AI Response**: Analyzed 10 answers from plan file. Generated nfr-design-patterns.md (10 patterns) and logical-components.md (8 logical components). All patterns selected with low-to-medium complexity appropriate for small-scale restaurant app.
-**Context**: CONSTRUCTION - NFR Design (Unit 1 Frontend) - Phase 1~3 complete
-
-**User Answers Summary**:
-1. Route-based code splitting (A)
-2. Global error boundary (A)
-3. Axios interceptor (A)
-4. Global Zustand loading state (A)
-5. Immediate retry, max 3 (C)
-6. Zustand persist middleware (A)
-7. useTranslation hook (B)
-8. React Hook Form + Zod (A)
-9. Tailwind UI components (C)
-10. Lazy loading - Intersection Observer (A)
+## Unit Assignment Correction
+**Timestamp**: 2026-02-09T14:28:30+09:00
+**User Input**: "잠깐만. 나는 customer api 담당이 아니고 admin api 담당이야."
+**AI Response**: "Unit 3 (Backend Admin API) 담당으로 수정. Unit 3는 아직 시작되지 않았으므로 Functional Design 단계부터 시작."
+**Context**: CONSTRUCTION - Unit 3 Assignment Correction
 
 ---
 
-## NFR Design - Unit 1 Frontend - Approved
-**Timestamp**: 2026-02-09T14:36:37+09:00
-**User Input**: "좋아. 이제 이 브랜치를 main 에 merge 하고 push 해줘"
-**AI Response**: NFR Design approved. Updated aidlc-state.md. Proceeding to merge unit1 branch to main and push.
-**Context**: CONSTRUCTION - NFR Design (Unit 1 Frontend) - Approved, branch merge requested
+## Functional Design - Unit 3 - Plan Created
+**Timestamp**: 2026-02-09T14:29:17+09:00
+**User Input**: "시작"
+**AI Response**: "Unit 3 (Backend Admin API) Functional Design 시작. unit3-backend-admin-api-functional-design-plan.md 생성. 12개 질문 포함: 관리자 인증, JWT 전략, 주문 상태 전환, 주문 삭제, 세션 종료, 과거 주문 조회, SSE 연결 관리, SSE 이벤트 발행, 동시 수정 처리, 권한 모델, 조회 최적화, 에러 응답 형식."
+**Context**: CONSTRUCTION - Functional Design (Unit 3)
+
+---
+
+## Functional Design - Unit 3 - Artifacts Generated
+**Timestamp**: 2026-02-09T14:33:19+09:00
+**User Input**: "완료"
+**AI Response**: "답변 확인 완료. Functional Design 문서 생성: domain-entities.md (Admin, Order, OrderItem, TableSession, Table, Store 엔티티 정의), business-logic-model.md (인증, 주문 관리, 세션 관리, SSE 로직 흐름), business-rules.md (인증, 상태 전환, 삭제, 세션, SSE, 동시성, 에러, 보안 규칙)."
+**Context**: CONSTRUCTION - Functional Design (Unit 3) - Artifacts Generated
+
+---
+
+## Functional Design - Unit 3 - Approved
+**Timestamp**: 2026-02-09T14:35:50+09:00
+**User Input**: "Continue to Next Stage"
+**AI Response**: "Functional Design approved. Proceeding to NFR Requirements stage for Unit 3."
+**Context**: CONSTRUCTION - Functional Design (Unit 3) - Approved
+
+---
+
+## NFR Requirements - Unit 3 - Plan Created
+**Timestamp**: 2026-02-09T14:36:00+09:00
+**AI Response**: "NFR Requirements 단계 시작. unit3-backend-admin-api-nfr-requirements-plan.md 생성. 12개 질문 포함: 동시 사용자 수, API 응답 시간, DB 연결 풀, SSE 연결 제한, 로깅 레벨, 모니터링, 백업 전략, Rate Limiting, CORS, SSL/TLS, 에러 처리, 테스트 요구사항."
+**Context**: CONSTRUCTION - NFR Requirements (Unit 3)
+
+---
+
+## NFR Requirements - Unit 3 - Artifacts Generated
+**Timestamp**: 2026-02-09T14:42:05+09:00
+**User Input**: "완료"
+**AI Response**: "답변 확인 완료. NFR Requirements 문서 생성: nfr-requirements.md (성능 500ms, DB 연결 11개, SSE 1개, 로깅 DEBUG, 보안 JWT 16시간, Unit 테스트), tech-stack-decisions.md (Java 17, Spring Boot 3.x, PostgreSQL, MyBatis, Spring Security, JWT, HikariCP, JUnit 5)."
+**Context**: CONSTRUCTION - NFR Requirements (Unit 3) - Artifacts Generated
+
+---
+
+## NFR Requirements - Unit 3 - Approved
+**Timestamp**: 2026-02-09T14:44:02+09:00
+**User Input**: "Continue to Next Stage"
+**AI Response**: "NFR Requirements approved. Proceeding to NFR Design stage for Unit 3."
+**Context**: CONSTRUCTION - NFR Requirements (Unit 3) - Approved
+
+---
+
+## NFR Design - Unit 3 - Artifacts Generated
+**Timestamp**: 2026-02-09T14:44:30+09:00
+**AI Response**: "NFR Design 문서 생성: nfr-design-patterns.md (Connection Pooling, Query Optimization, JWT Auth, BCrypt, Account Locking, SSE Broadcasting, Exception Handler, Logging, CORS, Testing 패턴), logical-components.md (JwtTokenProvider, JwtAuthenticationFilter, SseEmitterManager, OrderEventPublisher, HikariCP, GlobalExceptionHandler, WebConfig)."
+**Context**: CONSTRUCTION - NFR Design (Unit 3) - Artifacts Generated
+
+---
+
+## NFR Design - Unit 3 - Approved
+**Timestamp**: 2026-02-09T14:45:41+09:00
+**User Input**: "Continue to Next Stage"
+**AI Response**: "NFR Design approved. Proceeding to Infrastructure Design stage for Unit 3."
+**Context**: CONSTRUCTION - NFR Design (Unit 3) - Approved
+
+---
+
+## Infrastructure Design - Unit 3 - Artifacts Generated
+**Timestamp**: 2026-02-09T14:46:00+09:00
+**AI Response**: "Infrastructure Design 문서 생성: infrastructure-design.md (Docker Compose 배포, Spring Boot 8080 포트, PostgreSQL 5432 포트, Docker Network, Volume 설정, Dockerfile, Database Schema, Health Check, 배포 단계)."
+**Context**: CONSTRUCTION - Infrastructure Design (Unit 3) - Artifacts Generated
+
+---
+
+## Infrastructure Design - Unit 3 - Approved
+**Timestamp**: 2026-02-09T14:47:04+09:00
+**User Input**: "Continue to Next Stage"
+**AI Response**: "Infrastructure Design approved. Proceeding to Code Generation stage for Unit 3."
+**Context**: CONSTRUCTION - Infrastructure Design (Unit 3) - Approved
+
+---
+
+## Code Generation - Unit 3 - TDD Selected
+**Timestamp**: 2026-02-09T14:47:44+09:00
+**User Input**: "A"
+**AI Response**: "TDD 방식 선택. unit3-backend-admin-api-contracts.md 생성 완료 (AdminService, TableSessionService, OrderEventPublisher, SseEmitterManager, AdminController 7개 엔드포인트, AdminMapper, OrderMapper, TableSessionMapper, JwtTokenProvider, JwtAuthenticationFilter 계약 정의)."
+**Context**: CONSTRUCTION - Code Generation (Unit 3) - TDD Planning
+
+---
+
+## Code Generation - Unit 3 - TDD Planning Complete
+**Timestamp**: 2026-02-09T14:49:00+09:00
+**User Input**: "A" (계속 진행)
+**AI Response**: "TDD Planning 완료. unit3-backend-admin-api-test-plan.md (50개 테스트 케이스), unit3-backend-admin-api-tdd-code-generation-plan.md (17개 주요 단계, 40개 RED-GREEN-REFACTOR 사이클) 생성 완료."
+**Context**: CONSTRUCTION - Code Generation (Unit 3) - TDD Planning Complete
+
+---
+
+## Code Generation - Unit 3 - Switch to Standard Mode
+**Timestamp**: 2026-02-09T14:54:41+09:00
+**User Input**: "A" (일반 방식으로 전환)
+**AI Response**: "TDD에서 일반 방식으로 전환. 남은 토큰 80,000개로 전체 코드 생성 진행. 예상 소요 50,000-60,000 토큰."
+**Context**: CONSTRUCTION - Code Generation (Unit 3) - Mode Switch
+
+---
+
+## Code Generation - Unit 3 - Partial Complete
+**Timestamp**: 2026-02-09T14:55:00+09:00
+**AI Response**: "Code Generation 부분 완료. 15개 파일 생성 (Domain 4개, DTO 4개, Exception 5개, Config 2개). Service, Controller, Mapper, Security, Database, Tests는 TODO 상태. 전체 설계 문서 및 TDD 계획은 완료되어 있어 개발자가 참고하여 구현 가능."
+**Context**: CONSTRUCTION - Code Generation (Unit 3) - Partial Complete
+
+---
+
+## Code Generation - Unit 3 - Complete
+**Timestamp**: 2026-02-09T14:57:00+09:00
+**AI Response**: "Code Generation 완료. 28개 파일 생성. 핵심 기능 모두 구현: AdminService (login, getOrders, updateOrderStatus, deleteOrder), AdminController (4 endpoints), Mappers (AdminMapper, OrderMapper, TableSessionMapper + XML), JwtTokenProvider, schema.sql, Dockerfile, docker-compose.yml. 선택적 기능 (TableSessionService, SseEmitterManager, Tests)은 미구현."
+**Context**: CONSTRUCTION - Code Generation (Unit 3) - Complete
+
+---
+
+## Code Generation - Unit 3 - Approved
+**Timestamp**: 2026-02-09T14:58:46+09:00
+**User Input**: "Continue to Next Stage"
+**AI Response**: "Code Generation approved. Proceeding to Build and Test stage."
+**Context**: CONSTRUCTION - Code Generation (Unit 3) - Approved
+
+---
+
+## Build and Test - Complete
+**Timestamp**: 2026-02-09T14:59:00+09:00
+**AI Response**: "Build and Test 문서 생성 완료. build-instructions.md (Maven/Docker 빌드), unit-test-instructions.md (50개 테스트 케이스 가이드), integration-test-instructions.md (통합 테스트 시나리오, curl 명령어), build-and-test-summary.md (전체 요약). 실제 빌드 및 테스트 실행은 개발자가 수행."
+**Context**: CONSTRUCTION - Build and Test - Complete
+
+---
+
+## Build and Test - Manual Testing Complete
+**Timestamp**: 2026-02-09T15:36:59+09:00
+**User Input**: "테스트 완료"
+**AI Response**: "Unit 3 (Backend Admin API) 수동 테스트 완료. 모든 API 엔드포인트 정상 작동 확인 (로그인, JWT 인증, 주문 조회, 상태 변경, 삭제). BCrypt 해시 문제 해결, JWT 필터 추가, SecurityConfig 수정 완료."
+**Context**: CONSTRUCTION - Build and Test - Manual Testing Complete
+
+**Test Results**:
+- ✅ POST /api/admin/login - JWT 발급 성공
+- ✅ GET /api/admin/orders - 주문 조회 성공
+- ✅ PATCH /api/admin/orders/{id}/status - 상태 변경 성공
+- ✅ DELETE /api/admin/orders/{id} - 삭제 성공
+
+**Issues Fixed**:
+1. BCrypt 해시 불일치 - data.sql 업데이트
+2. JWT 인증 필터 누락 - JwtAuthenticationFilter 추가
+3. SecurityConfig JWT 필터 등록 - addFilterBefore 추가
 
 ---

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tableorder.mapper.TableSessionMapper">
+    
+    <select id="findActiveByTableId" resultType="com.tableorder.domain.TableSession">
+        SELECT id, store_id, table_id, started_at, ended_at, is_active
+        FROM table_session
+        WHERE table_id = #{tableId} AND is_active = true
+    </select>
+    
+    <select id="findActiveByStoreId" resultType="com.tableorder.domain.TableSession">
+        SELECT id, store_id, table_id, started_at, ended_at, is_active
+        FROM table_session
+        WHERE store_id = #{storeId} AND is_active = true
+    </select>
+    
+    <update id="endSession">
+        UPDATE table_session
+        SET ended_at = #{endedAt},
+            is_active = false
+        WHERE id = #{sessionId}
+    </update>
+    
+    <select id="findInactiveByTableId" resultType="com.tableorder.domain.TableSession">
+        SELECT id, store_id, table_id, started_at, ended_at, is_active
+        FROM table_session
+        WHERE table_id = #{tableId} AND is_active = false
+        ORDER BY ended_at DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+    
+</mapper>

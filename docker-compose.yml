@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: tableorder-db
+    environment:
+      POSTGRES_DB: tableorder
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./backend/src/main/resources/data.sql:/docker-entrypoint-initdb.d/02-data.sql
+    networks:
+      - tableorder-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  admin-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: tableorder-admin-api
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tableorder
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_SECURITY_JWT_SECRET: your-secret-key-change-in-production-min-256-bits-long
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - tableorder-network
+
+volumes:
+  postgres-data:
+
+networks:
+  tableorder-network:
+    driver: bridge
