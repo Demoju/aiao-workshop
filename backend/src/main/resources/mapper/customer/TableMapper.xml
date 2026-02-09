@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tableorder.customer.mapper.TableMapper">
+    
+    <select id="selectTableByCredentials" resultType="com.tableorder.domain.Table">
+        SELECT table_id, table_number, store_id, password_hash, created_at
+        FROM tables
+        WHERE store_id = #{storeId}
+          AND table_number = #{tableNumber}
+    </select>
+    
+</mapper>

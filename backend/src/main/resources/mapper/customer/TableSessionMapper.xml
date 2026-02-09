@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tableorder.customer.mapper.TableSessionMapper">
+    
+    <select id="selectActiveSession" resultType="com.tableorder.domain.TableSession">
+        SELECT session_id, table_id, start_time, end_time, is_active, created_at
+        FROM table_sessions
+        WHERE table_id = #{tableId}
+          AND is_active = true
+        ORDER BY start_time DESC
+        LIMIT 1
+    </select>
+    
+    <insert id="insertTableSession" parameterType="com.tableorder.domain.TableSession">
+        INSERT INTO table_sessions (session_id, table_id, start_time, end_time, is_active, created_at)
+        VALUES (#{sessionId}, #{tableId}, #{startTime}, #{endTime}, #{isActive}, CURRENT_TIMESTAMP)
+    </insert>
+    
+    <select id="selectSessionById" resultType="com.tableorder.domain.TableSession">
+        SELECT session_id, table_id, start_time, end_time, is_active, created_at
+        FROM table_sessions
+        WHERE session_id = #{sessionId}
+    </select>
+    
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tableorder.customer.mapper.OrderItemMapper">
+    
+    <insert id="insertOrderItems">
+        INSERT INTO order_items (order_id, menu_id, quantity, unit_price, created_at)
+        VALUES
+        <foreach collection="items" item="item" separator=",">
+            (#{item.orderId}, #{item.menuId}, #{item.quantity}, #{item.unitPrice}, CURRENT_TIMESTAMP)
+        </foreach>
+    </insert>
+    
+    <select id="selectOrderItemsByOrderId" resultType="com.tableorder.domain.OrderItem">
+        SELECT oi.order_item_id, oi.order_id, oi.menu_id, oi.quantity, oi.unit_price, oi.created_at,
+               m.menu_name
+        FROM order_items oi
+        LEFT JOIN menus m ON oi.menu_id = m.menu_id
+        WHERE oi.order_id = #{orderId}
+        ORDER BY oi.order_item_id
+    </select>
+    
+    <delete id="deleteOrderItems">
+        DELETE FROM order_items
+        WHERE order_id = #{orderId}
+    </delete>
+    
+</mapper>
