@@ -1,4 +1,4 @@
-package com.tableorder.mapper;
+package com.tableorder.admin.mapper;
 
 import com.tableorder.domain.Order;
 import com.tableorder.domain.OrderStatus;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.tableorder.mapper.OrderMapper">
+<mapper namespace="com.tableorder.admin.mapper.OrderMapper">
     
     <select id="findBySessionIdIn" resultType="com.tableorder.domain.Order">
         SELECT id, store_id, table_id, session_id, order_number, status, total_amount, created_at, updated_at

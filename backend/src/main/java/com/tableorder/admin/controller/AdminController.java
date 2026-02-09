@@ -1,10 +1,10 @@
-package com.tableorder.controller;
+package com.tableorder.admin.controller;
 
 import com.tableorder.domain.OrderStatus;
-import com.tableorder.dto.AdminLoginRequestDto;
-import com.tableorder.dto.AdminLoginResponseDto;
-import com.tableorder.dto.OrderResponseDto;
-import com.tableorder.service.AdminService;
+import com.tableorder.admin.dto.AdminLoginRequestDto;
+import com.tableorder.admin.dto.AdminLoginResponseDto;
+import com.tableorder.admin.dto.OrderResponseDto;
+import com.tableorder.admin.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

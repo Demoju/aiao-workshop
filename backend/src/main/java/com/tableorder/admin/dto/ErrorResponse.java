@@ -1,4 +1,4 @@
-package com.tableorder.dto;
+package com.tableorder.admin.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

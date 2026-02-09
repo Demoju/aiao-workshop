@@ -1,4 +1,4 @@
-package com.tableorder.mapper;
+package com.tableorder.admin.mapper;
 
 import com.tableorder.domain.Admin;
 import org.apache.ibatis.annotations.Mapper;

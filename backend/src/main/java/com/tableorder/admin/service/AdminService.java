@@ -1,14 +1,14 @@
-package com.tableorder.service;
+package com.tableorder.admin.service;
 
 import com.tableorder.domain.Admin;
 import com.tableorder.domain.Order;
 import com.tableorder.domain.OrderStatus;
-import com.tableorder.dto.AdminLoginResponseDto;
-import com.tableorder.dto.OrderResponseDto;
+import com.tableorder.admin.dto.AdminLoginResponseDto;
+import com.tableorder.admin.dto.OrderResponseDto;
 import com.tableorder.exception.*;
-import com.tableorder.mapper.AdminMapper;
-import com.tableorder.mapper.OrderMapper;
-import com.tableorder.mapper.TableSessionMapper;
+import com.tableorder.admin.mapper.AdminMapper;
+import com.tableorder.admin.mapper.OrderMapper;
+import com.tableorder.admin.mapper.TableSessionMapper;
 import com.tableorder.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
