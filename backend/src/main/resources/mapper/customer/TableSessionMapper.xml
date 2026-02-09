@@ -5,23 +5,23 @@
 <mapper namespace="com.tableorder.customer.mapper.TableSessionMapper">
     
     <select id="selectActiveSession" resultType="com.tableorder.domain.TableSession">
-        SELECT session_id, table_id, start_time, end_time, is_active, created_at
-        FROM table_sessions
+        SELECT id, table_id, store_id, started_at, ended_at, is_active
+        FROM table_session
         WHERE table_id = #{tableId}
           AND is_active = true
-        ORDER BY start_time DESC
+        ORDER BY started_at DESC
         LIMIT 1
     </select>
     
     <insert id="insertTableSession" parameterType="com.tableorder.domain.TableSession">
-        INSERT INTO table_sessions (session_id, table_id, start_time, end_time, is_active, created_at)
-        VALUES (#{sessionId}, #{tableId}, #{startTime}, #{endTime}, #{isActive}, CURRENT_TIMESTAMP)
+        INSERT INTO table_session (table_id, store_id, started_at, ended_at, is_active)
+        VALUES (#{tableId}, #{storeId}, #{startedAt}, #{endedAt}, #{isActive})
     </insert>
     
     <select id="selectSessionById" resultType="com.tableorder.domain.TableSession">
-        SELECT session_id, table_id, start_time, end_time, is_active, created_at
-        FROM table_sessions
-        WHERE session_id = #{sessionId}
+        SELECT id, table_id, store_id, started_at, ended_at, is_active
+        FROM table_session
+        WHERE id = #{sessionId}
     </select>
     
 </mapper>

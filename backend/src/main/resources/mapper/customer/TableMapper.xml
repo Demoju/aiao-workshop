@@ -5,8 +5,8 @@
 <mapper namespace="com.tableorder.customer.mapper.TableMapper">
     
     <select id="selectTableByCredentials" resultType="com.tableorder.domain.Table">
-        SELECT table_id, table_number, store_id, password_hash, created_at
-        FROM tables
+        SELECT id as table_id, table_number, store_id, password as password_hash, created_at
+        FROM "table"
         WHERE store_id = #{storeId}
           AND table_number = #{tableNumber}
     </select>

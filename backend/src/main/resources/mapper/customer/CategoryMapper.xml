@@ -6,7 +6,7 @@
     
     <select id="selectCategories" resultType="com.tableorder.domain.Category">
         SELECT category_id, category_name, store_id, created_at
-        FROM categories
+        FROM category
         ORDER BY category_id
     </select>
     
