@@ -49,11 +49,11 @@ public class AuthService {
         TableSession session = sessionService.getOrCreateSession(table.getTableId());
         
         log.info("테이블 로그인 성공 - tableId: {}, sessionId: {}", 
-                table.getTableId(), session.getSessionId());
+                table.getTableId(), session.getId().toString());
         
         return new TableLoginResponseDto(
                 table.getTableId(),
-                session.getSessionId(),
+                session.getId().toString(),
                 table.getStoreId(),
                 table.getTableNumber()
         );

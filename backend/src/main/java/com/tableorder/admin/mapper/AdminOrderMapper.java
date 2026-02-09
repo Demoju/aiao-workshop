@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Mapper
-public interface OrderMapper {
+public interface AdminOrderMapper {
     List<Order> findBySessionIdIn(@Param("sessionIds") List<Long> sessionIds);
     Optional<Order> findById(@Param("orderId") Long orderId);
     void updateStatus(@Param("orderId") Long orderId, @Param("status") OrderStatus status);

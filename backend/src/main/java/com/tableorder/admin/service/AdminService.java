@@ -7,8 +7,8 @@ import com.tableorder.admin.dto.AdminLoginResponseDto;
 import com.tableorder.admin.dto.OrderResponseDto;
 import com.tableorder.exception.*;
 import com.tableorder.admin.mapper.AdminMapper;
-import com.tableorder.admin.mapper.OrderMapper;
-import com.tableorder.admin.mapper.TableSessionMapper;
+import com.tableorder.admin.mapper.AdminOrderMapper;
+import com.tableorder.admin.mapper.AdminTableSessionMapper;
 import com.tableorder.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 public class AdminService {
     
     private final AdminMapper adminMapper;
-    private final OrderMapper orderMapper;
-    private final TableSessionMapper tableSessionMapper;
+    private final AdminOrderMapper orderMapper;
+    private final AdminTableSessionMapper tableSessionMapper;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     

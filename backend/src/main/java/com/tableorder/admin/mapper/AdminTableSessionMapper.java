@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Mapper
-public interface TableSessionMapper {
+public interface AdminTableSessionMapper {
     Optional<TableSession> findActiveByTableId(@Param("tableId") Long tableId);
     void endSession(@Param("sessionId") Long sessionId, @Param("endedAt") LocalDateTime endedAt);
     List<TableSession> findInactiveByTableId(@Param("tableId") Long tableId, 

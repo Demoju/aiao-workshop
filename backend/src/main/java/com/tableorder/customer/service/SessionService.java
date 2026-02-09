@@ -25,22 +25,22 @@ public class SessionService {
         TableSession activeSession = tableSessionMapper.selectActiveSession(tableId);
         
         if (activeSession != null) {
-            log.info("기존 활성 세션 반환 - sessionId: {}", activeSession.getSessionId());
+            log.info("기존 활성 세션 반환 - sessionId: {}", activeSession.getId());
             return activeSession;
         }
         
         // 새 세션 생성
         TableSession newSession = TableSession.builder()
-                .sessionId(UUID.randomUUID().toString())
+                
                 .tableId(tableId)
-                .startTime(LocalDateTime.now())
-                .endTime(null)
+                .startedAt(LocalDateTime.now())
+                .endedAt(null)
                 .isActive(true)
                 .build();
         
         tableSessionMapper.insertTableSession(newSession);
         
-        log.info("새 세션 생성 완료 - sessionId: {}", newSession.getSessionId());
+        log.info("새 세션 생성 완료 - sessionId: {}", newSession.getId());
         return newSession;
     }
     

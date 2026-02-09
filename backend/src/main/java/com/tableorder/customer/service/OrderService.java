@@ -48,10 +48,10 @@ public class OrderService {
         Order order = Order.builder()
                 .orderNumber(orderNumber)
                 .tableId(request.getTableId())
-                .sessionId(request.getSessionId())
+                .sessionId(Long.parseLong(request.getSessionId()))
                 .totalAmount(request.getTotalAmount())
                 .status(OrderStatus.PENDING)
-                .orderTime(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .build();
         
         orderMapper.insertOrder(order);
@@ -59,7 +59,7 @@ public class OrderService {
         // 6. OrderItem 엔티티 생성
         List<OrderItem> orderItems = request.getItems().stream()
                 .map(itemDto -> OrderItem.builder()
-                        .orderId(order.getOrderId())
+                        .orderId(order.getId())
                         .menuId(itemDto.getMenuId())
                         .quantity(itemDto.getQuantity())
                         .unitPrice(itemDto.getUnitPrice())
@@ -69,10 +69,10 @@ public class OrderService {
         orderItemMapper.insertOrderItems(orderItems);
         
         log.info("주문 생성 완료 - orderId: {}, orderNumber: {}", 
-                order.getOrderId(), order.getOrderNumber());
+                order.getId(), order.getOrderNumber());
         
         // 7. OrderItem 조회 (menuName 포함)
-        List<OrderItem> itemsWithMenuName = orderItemMapper.selectOrderItemsByOrderId(order.getOrderId());
+        List<OrderItem> itemsWithMenuName = orderItemMapper.selectOrderItemsByOrderId(order.getId());
         
         return buildOrderResponse(order, itemsWithMenuName);
     }
@@ -85,7 +85,7 @@ public class OrderService {
         
         return orders.stream()
                 .map(order -> {
-                    List<OrderItem> items = orderItemMapper.selectOrderItemsByOrderId(order.getOrderId());
+                    List<OrderItem> items = orderItemMapper.selectOrderItemsByOrderId(order.getId());
                     return buildOrderResponse(order, items);
                 })
                 .collect(Collectors.toList());
@@ -99,7 +99,7 @@ public class OrderService {
         Order order = orderMapper.selectOrderById(orderId);
         
         if (order == null) {
-            throw new OrderNotFoundException();
+            throw new OrderNotFoundException("Order not found");
         }
         
         // 2. 주문 상태 확인
@@ -164,13 +164,13 @@ public class OrderService {
                 .collect(Collectors.toList());
         
         return OrderResponseDto.builder()
-                .orderId(order.getOrderId())
+                .orderId(order.getId())
                 .orderNumber(order.getOrderNumber())
                 .tableId(order.getTableId())
-                .sessionId(order.getSessionId())
+                .sessionId(order.getSessionId().toString())
                 .totalAmount(order.getTotalAmount())
                 .status(order.getStatus())
-                .orderTime(order.getOrderTime())
+                .orderTime(order.getCreatedAt())
                 .items(itemDtos)
                 .build();
     }

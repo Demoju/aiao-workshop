@@ -18,8 +18,8 @@ public class JwtTokenProvider {
     private final long expiration;
     
     public JwtTokenProvider(
-            @Value("${spring.security.jwt.secret}") String secret,
-            @Value("${spring.security.jwt.expiration}") long expiration) {
+            @Value("${jwt.secret}") String secret,
+            @Value("${jwt.expiration}") long expiration) {
         this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expiration = expiration;
     }

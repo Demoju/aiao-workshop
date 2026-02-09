@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.tableorder.admin.mapper.TableSessionMapper">
+<mapper namespace="com.tableorder.admin.mapper.AdminTableSessionMapper">
     
     <select id="findActiveByTableId" resultType="com.tableorder.domain.TableSession">
         SELECT id, store_id, table_id, started_at, ended_at, is_active

@@ -12,8 +12,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
-      - ./backend/src/main/resources/data.sql:/docker-entrypoint-initdb.d/02-data.sql
+      - ./backend/src/main/resources/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - tableorder-network
     healthcheck:
@@ -22,20 +21,37 @@ services:
       timeout: 5s
       retries: 5
 
-  admin-api:
+  redis:
+    image: redis:7-alpine
+    container_name: tableorder-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - tableorder-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: tableorder-admin-api
+    container_name: tableorder-backend
     environment:
+      SPRING_PROFILES_ACTIVE: dev
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tableorder
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_SECURITY_JWT_SECRET: your-secret-key-change-in-production-min-256-bits-long
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
     ports:
       - "8080:8080"
     depends_on:
       db:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     networks:
       - tableorder-network

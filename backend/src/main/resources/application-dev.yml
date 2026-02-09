@@ -29,6 +29,10 @@ mybatis:
     default-fetch-size: 100
     default-statement-timeout: 30
 
+jwt:
+  secret: ${JWT_SECRET:your-secret-key-change-in-production-min-256-bits-long-for-hs384-algorithm}
+  expiration: 57600000
+
 logging:
   level:
     com.tableorder: DEBUG
