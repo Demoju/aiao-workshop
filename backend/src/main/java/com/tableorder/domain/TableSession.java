@@ -14,6 +14,7 @@ public class TableSession {
     private Long id;
     private Long storeId;
     private Long tableId;
+    private String sessionId;
     private LocalDateTime startedAt;
     private LocalDateTime endedAt;
     private Boolean isActive;

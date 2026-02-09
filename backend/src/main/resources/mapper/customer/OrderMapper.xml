@@ -5,36 +5,32 @@
 <mapper namespace="com.tableorder.customer.mapper.OrderMapper">
     
     <insert id="insertOrder" parameterType="com.tableorder.domain.Order" 
-            useGeneratedKeys="true" keyProperty="orderId">
-        INSERT INTO orders (order_number, table_id, session_id, total_amount, status, order_time, created_at)
-        VALUES (#{orderNumber}, #{tableId}, #{sessionId}, #{totalAmount}, #{status}, #{orderTime}, CURRENT_TIMESTAMP)
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO orders (store_id, order_number, table_id, session_id, total_amount, status, created_at)
+        VALUES (1, #{orderNumber}, #{tableId}, #{sessionId}, #{totalAmount}, #{status}, #{createdAt})
     </insert>
     
     <select id="selectOrdersBySession" resultType="com.tableorder.domain.Order">
-        SELECT order_id, order_number, table_id, session_id, total_amount, 
-               status, order_time, created_at, updated_at
+        SELECT id, store_id, order_number, table_id, session_id, total_amount, 
+               status, created_at, updated_at
         FROM orders
         WHERE table_id = #{tableId}
-          AND session_id = #{sessionId}
-        ORDER BY order_time DESC
+        ORDER BY created_at DESC
     </select>
     
     <select id="selectOrderById" resultType="com.tableorder.domain.Order">
-        SELECT order_id, order_number, table_id, session_id, total_amount, 
-               status, order_time, created_at, updated_at
+        SELECT id, store_id, order_number, table_id, session_id, total_amount, 
+               status, created_at, updated_at
         FROM orders
-        WHERE order_id = #{orderId}
+        WHERE id = #{orderId}
     </select>
     
     <delete id="deleteOrder">
-        DELETE FROM orders
-        WHERE order_id = #{orderId}
+        DELETE FROM orders WHERE id = #{orderId}
     </delete>
     
     <select id="countTodayOrders" resultType="java.lang.Integer">
-        SELECT COUNT(*)
-        FROM orders
-        WHERE DATE(order_time) = CURRENT_DATE
+        SELECT COUNT(*) FROM orders WHERE DATE(created_at) = CURRENT_DATE
     </select>
     
 </mapper>

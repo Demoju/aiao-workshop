@@ -29,12 +29,13 @@ public class SessionService {
             return activeSession;
         }
         
-        // 새 세션 생성
+        // 새 세션 생성 (storeId는 table에서 조회 필요하지만, 간단히 1로 설정)
         TableSession newSession = TableSession.builder()
                 .sessionId(UUID.randomUUID().toString())
+                .storeId(1L)
                 .tableId(tableId)
-                .startTime(LocalDateTime.now())
-                .endTime(null)
+                .startedAt(LocalDateTime.now())
+                .endedAt(null)
                 .isActive(true)
                 .build();
         

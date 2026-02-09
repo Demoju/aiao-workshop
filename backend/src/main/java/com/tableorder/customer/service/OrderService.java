@@ -32,34 +32,26 @@ public class OrderService {
         log.info("주문 생성 시작 - tableId: {}, sessionId: {}, totalAmount: {}", 
                 request.getTableId(), request.getSessionId(), request.getTotalAmount());
         
-        // 1. 세션 검증 및 생성
-        sessionService.getOrCreateSession(request.getTableId());
-        
-        // 2. 메뉴 검증 및 가격 검증
+        TableSession session = sessionService.getOrCreateSession(request.getTableId());
         validateMenusAndPrices(request.getItems());
-        
-        // 3. 총액 검증
         validateTotalAmount(request.getItems(), request.getTotalAmount());
         
-        // 4. 주문 번호 생성
         String orderNumber = generateOrderNumber();
         
-        // 5. Order 엔티티 생성
         Order order = Order.builder()
                 .orderNumber(orderNumber)
                 .tableId(request.getTableId())
-                .sessionId(request.getSessionId())
+                .sessionId(session.getId())
                 .totalAmount(request.getTotalAmount())
                 .status(OrderStatus.PENDING)
-                .orderTime(LocalDateTime.now())
+                .createdAt(LocalDateTime.now())
                 .build();
         
         orderMapper.insertOrder(order);
         
-        // 6. OrderItem 엔티티 생성
         List<OrderItem> orderItems = request.getItems().stream()
                 .map(itemDto -> OrderItem.builder()
-                        .orderId(order.getOrderId())
+                        .orderId(order.getId())
                         .menuId(itemDto.getMenuId())
                         .quantity(itemDto.getQuantity())
                         .unitPrice(itemDto.getUnitPrice())
@@ -69,10 +61,9 @@ public class OrderService {
         orderItemMapper.insertOrderItems(orderItems);
         
         log.info("주문 생성 완료 - orderId: {}, orderNumber: {}", 
-                order.getOrderId(), order.getOrderNumber());
+                order.getId(), order.getOrderNumber());
         
-        // 7. OrderItem 조회 (menuName 포함)
-        List<OrderItem> itemsWithMenuName = orderItemMapper.selectOrderItemsByOrderId(order.getOrderId());
+        List<OrderItem> itemsWithMenuName = orderItemMapper.selectOrderItemsByOrderId(order.getId());
         
         return buildOrderResponse(order, itemsWithMenuName);
     }
@@ -85,7 +76,7 @@ public class OrderService {
         
         return orders.stream()
                 .map(order -> {
-                    List<OrderItem> items = orderItemMapper.selectOrderItemsByOrderId(order.getOrderId());
+                    List<OrderItem> items = orderItemMapper.selectOrderItemsByOrderId(order.getId());
                     return buildOrderResponse(order, items);
                 })
                 .collect(Collectors.toList());
@@ -95,22 +86,17 @@ public class OrderService {
     public void cancelOrder(Long orderId) {
         log.info("주문 취소 시작 - orderId: {}", orderId);
         
-        // 1. 주문 조회
         Order order = orderMapper.selectOrderById(orderId);
         
         if (order == null) {
-            throw new OrderNotFoundException();
+            throw new OrderNotFoundException("Order not found: " + orderId);
         }
         
-        // 2. 주문 상태 확인
         if (order.getStatus() != OrderStatus.PENDING) {
-            throw new InvalidOrderStatusException();
+            throw new InvalidStatusTransitionException("Cannot cancel order in " + order.getStatus() + " status");
         }
         
-        // 3. OrderItem 먼저 삭제
         orderItemMapper.deleteOrderItems(orderId);
-        
-        // 4. Order 삭제
         orderMapper.deleteOrder(orderId);
         
         log.info("주문 취소 완료 - orderId: {}", orderId);
@@ -128,7 +114,6 @@ public class OrderService {
                 throw new MenuNotAvailableException("품절된 메뉴입니다: " + menu.getMenuName());
             }
             
-            // 가격 검증
             if (menu.getPrice().compareTo(item.getUnitPrice()) != 0) {
                 throw new PriceChangedException();
             }
@@ -164,13 +149,13 @@ public class OrderService {
                 .collect(Collectors.toList());
         
         return OrderResponseDto.builder()
-                .orderId(order.getOrderId())
+                .orderId(order.getId())
                 .orderNumber(order.getOrderNumber())
                 .tableId(order.getTableId())
-                .sessionId(order.getSessionId())
+                .sessionId(String.valueOf(order.getSessionId()))
                 .totalAmount(order.getTotalAmount())
                 .status(order.getStatus())
-                .orderTime(order.getOrderTime())
+                .orderTime(order.getCreatedAt())
                 .items(itemDtos)
                 .build();
     }

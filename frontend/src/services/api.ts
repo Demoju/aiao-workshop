@@ -11,6 +11,9 @@ export function setupInterceptors() {
     if (user?.token) {
       config.headers.Authorization = `Bearer ${user.token}`
     }
+    if (user?.sessionId) {
+      config.headers['X-Session-Id'] = user.sessionId
+    }
     return config
   })
 
